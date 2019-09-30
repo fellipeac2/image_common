@@ -84,7 +84,9 @@ CameraInfoManager::CameraInfoManager(ros::NodeHandle nh,
   loaded_cam_info_(false)
 {
   // register callback for camera calibration service request
-  info_service_ = nh_.advertiseService("set_camera_info",
+  std::string service_name = camera_name_;
+  service_name.append("/set_camera_info");
+  info_service_ = nh_.advertiseService(service_name.c_str(),
                                        &CameraInfoManager::setCameraInfoService, this);
 }
 
